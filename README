@@ -1,0 +1,29 @@
+Sanwe is an attempt at writing a simple Prolog interpreter in F#. At the
+moment it is very incomplete and pretty much unusable. I'm coding it as a way
+to learn more about logic and functional programming, so there's no specific
+devlopment schedule at the moment. I'm still very new to both Prolog and F#, so
+I'd really appreciate any comments you might have about my code. Enjoy!
+
+== What's here ==
+
+* Mostly working, mostly ISO-compliant Prolog lexer and parser.
+
+== What's next (in rough descending order by priority) ==
+
+* Floating-point number support in the lexer.
+* More expressive syntax error messages.
+* Unit testing setup of some sort.
+* Many parser test cases, particularly for expressions in operator notation.
+* Interpreter core for pure Prolog (clause database and unification routine).
+* REPL for executing queries.
+* Cut support in unification.
+* Simple implementation of consult/1, not/1, and a few other builtins.
+* And so on...
+
+== Building instructions ==
+
+To build the provided Visual Studio solution, you need the Visual Studio 2010
+Beta 1 (or newer). You'll also need to download the F# PowerPack Beta 1 (or
+newer) and place FSharp.PowerPack.dll in the same directory as the project
+file. You can also try to build on Visual Studio 2008 or Mono with the F# May
+2009 CTP, but this is untested and your milage may vary, particularly on Mono.
