@@ -6,18 +6,20 @@ I'd really appreciate any comments you might have about my code. Enjoy!
 
 == What's here ==
 
-* Mostly working, mostly ISO-compliant Prolog lexer and parser.
+* An ISO-compliant Prolog lexer and parser.
+* A few (probably many, actually) unknown bugs.
 
 == What's next (in rough descending order by priority) ==
 
-* Floating-point number support in the lexer.
-* More expressive syntax error messages.
-* Unit testing setup of some sort.
-* Many parser test cases, particularly for expressions in operator notation.
-* Interpreter core for pure Prolog (clause database and unification routine).
-* REPL for executing queries.
-* Cut support in unification.
-* Simple implementation of consult/1, not/1, and a few other builtins.
+* Update to Visual Studio 2010 Beta 2 and fix any breakage.
+* Get a unit testing setup of some sort.
+* Write many parser test cases, particularly for expressions in operator
+  notation.
+* Write a simple interpreter core for pure Prolog (clause database and
+  unification routine).
+* Implement a REPL for executing queries.
+* Implement cut support in unification.
+* Write a simple implementation of consult/1, not/1, and a few other builtins.
 * And so on...
 
 == Building instructions ==

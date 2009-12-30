@@ -14,14 +14,39 @@
 
 module Sanwe.Common
 
+open System
 open System.Text
+
+let identity a = a
+
+let flip f a b = f b a
+
+let curry f a b = f (a, b)
+
+let curry3 f a b c = f (a, b, c)
+
+let curry4 f a b c d = f (a, b, c, d)
 
 let uncurry f (a, b) = f a b
 
 let uncurry3 f (a, b, c) = f a b c
+
+let uncurry4 f (a, b, c, d) = f a b c d
+
+let tuple a b = curry Tuple.Create a b
+
+let tuple3 a b c = curry3 Tuple.Create a b c
+
+let tuple4 a b c d = curry4 Tuple.Create a b c d
 
 module String =
     let of_chars xs =
         (StringBuilder ()
          |> List.fold (fun sb -> sb.Append : char -> _)
          >> string) xs
+
+module Int32 =
+    let of_chars b xs = Convert.ToInt32 (String.of_chars xs, (b : int))
+
+module Double =
+    let of_chars = String.of_chars >> Double.Parse

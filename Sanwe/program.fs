@@ -15,26 +15,51 @@
 module Sanwe.Program
 
 open System
+open Sanwe.Common
+open Sanwe.Syntax
+open Sanwe.Types
 
-open Sanwe.Lexing
-open Sanwe.Parsing
-
-let rec stdin () =
-    seq { yield! Console.ReadLine ()
-          yield '\n'
-          yield! stdin () }
+module Terp =
+    let query s term =
+        printfn "Read term: %A" term
+        s
+    
+    let toplevel s readLn printError =
+        let rec readLns () =
+            match readLn () with
+            | None -> LazyList.empty ()
+            | Some ln ->
+                LazyList.append (LazyList.of_seq ln)
+                    (LazyList.consf '\n' readLns)
+        
+        let rec toplevel' s pos source =
+            try
+                match parse s pos source with
+                | None -> s
+                | Some (term, pos', source') ->
+                    match term with
+                    | Atom "halt" -> s
+                    | _ -> toplevel' (query s term) pos' source'
+            with
+            | SyntaxError (msg, pos, pos', source') ->
+                printError msg pos
+                toplevel' s pos' source'
+        
+        toplevel' s { line = 1; col = 1 } (readLns ()) |> ignore
 
 [<EntryPoint>]
-let rec main args =
-    try
-        stdin ()
-        |> LazyList.of_seq
-        |> lex
-        |> parse DoubleQuotesCodes defaultLeftOperators defaultRightOperators
-        |> Seq.iter (printfn "%A")
+let main _ =
+    let readLn () =
+        printf "> "
         
-        0
-    with
-    | Failure (msg) ->
-        printfn "Error: %s" msg
-        main args
+        match Console.ReadLine () with
+        | null -> None
+        | ln -> Some ln
+    
+    let printError msg pos =
+        printfn "Syntax error at %d:%d: %s" pos.line pos.col msg
+    
+    printfn "Sanwe: A Prolog interpreter in F#"
+    Terp.toplevel TerpState.initial readLn printError
+    
+    0

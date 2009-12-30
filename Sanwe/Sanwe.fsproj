@@ -64,8 +64,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="common.fs" />
-    <Compile Include="lexing.fs" />
-    <Compile Include="parsing.fs" />
+    <Compile Include="types.fs" />
+    <Compile Include="syntax.fs" />
     <Compile Include="program.fs" />
   </ItemGroup>
   <Import Project="$(ProgramFiles)\Microsoft F#\v4.0\Microsoft.FSharp.Targets" />
