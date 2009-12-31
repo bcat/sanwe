@@ -48,10 +48,7 @@
     <Tailcalls>true</Tailcalls>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FSharp.PowerPack, Version=3.9.9.995, Culture=neutral, PublicKeyToken=a19089b1c74d0809">
-      <Name>FSharp.PowerPack</Name>
-      <AssemblyName>FSharp.PowerPack.dll</AssemblyName>
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="FSharp.PowerPack">
       <HintPath>FSharp.PowerPack.dll</HintPath>
       <Private>True</Private>
     </Reference>

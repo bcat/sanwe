@@ -67,13 +67,13 @@ module TerpState =
           doubleQuotesFlag = DoubleQuotesCodes
           unknownFlag      = UnknownError
           convMap          = Map.empty
-          leftOperators    = Map.of_list <|
+          leftOperators    = Map.ofList <|
                              [ ":-",   (1200, FX)
                                "?-",   (1200, FX)
                                "\+",   (900,  FY)
                                "-",    (200,  FY)
                                "\\",   (200,  FY) ]
-          rightOperators   = Map.of_list <|
+          rightOperators   = Map.ofList <|
                              [ ":-",   (1200, XFX)
                                "-->",  (1200, XFX)
                                ";",    (1100, XFY)

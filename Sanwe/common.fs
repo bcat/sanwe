@@ -40,13 +40,13 @@ let tuple3 a b c = curry3 Tuple.Create a b c
 let tuple4 a b c d = curry4 Tuple.Create a b c d
 
 module String =
-    let of_chars xs =
+    let ofChars xs =
         (StringBuilder ()
          |> List.fold (fun sb -> sb.Append : char -> _)
          >> string) xs
 
 module Int32 =
-    let of_chars b xs = Convert.ToInt32 (String.of_chars xs, (b : int))
+    let ofChars b xs = Convert.ToInt32 (String.ofChars xs, (b : int))
 
 module Double =
-    let of_chars = String.of_chars >> Double.Parse
+    let ofChars = String.ofChars >> Double.Parse

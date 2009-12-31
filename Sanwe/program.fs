@@ -29,8 +29,8 @@ module Terp =
             match readLn () with
             | None -> LazyList.empty ()
             | Some ln ->
-                LazyList.append (LazyList.of_seq ln)
-                    (LazyList.consf '\n' readLns)
+                LazyList.append (LazyList.ofSeq ln)
+                    (LazyList.consDelayed '\n' readLns)
         
         let rec toplevel' s pos source =
             try

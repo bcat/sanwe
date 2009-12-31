@@ -83,7 +83,7 @@ let lex s pos source =
             | { rawCh = OctDigit ch; next = Lazy lc2 } ->
                 octEscape (ch :: acc) lc2
             | { rawCh = Some '\\' } ->
-                let ch = (acc |> List.rev |> Int32.of_chars 8 |> char)
+                let ch = (acc |> List.rev |> Int32.ofChars 8 |> char)
                 
                 ch, lc.pos', lc.source'
             | _ ->
@@ -95,7 +95,7 @@ let lex s pos source =
             | { rawCh = HexDigit ch; next = Lazy lc2 } ->
                 hexEscape (ch :: acc) lc2
             | { rawCh = Some '\\' } ->
-                let ch = (acc |> List.rev |> Int32.of_chars 16 |> char)
+                let ch = (acc |> List.rev |> Int32.ofChars 16 |> char)
                 
                 ch, lc.pos', lc.source'
             | _ ->
@@ -196,10 +196,10 @@ let lex s pos source =
         | { ch = Some '"' } ->
             { ls with f = quote DoubleQuotedList '"' []; pos = lc.pos }
         | { ch = Some '\'' } ->
-            { ls with f   = quote (String.of_chars >> Name) '\'' []
+            { ls with f   = quote (String.ofChars >> Name) '\'' []
                     ; pos = lc.pos }
         | { ch = Some '`' } ->
-            { ls with f   = quote (String.of_chars >> BackQuotedString) '`' []
+            { ls with f   = quote (String.ofChars >> BackQuotedString) '`' []
                     ; pos = lc.pos }
         | { ch = Digit ch } -> integer [ ch ] { ls with pos = lc.pos } lc
         | { ch = Graphic ch } -> graphic [ ch ] { ls with pos = lc.pos } lc
@@ -238,7 +238,7 @@ let lex s pos source =
         | _ ->
             { ls with o = Some (acc
                                 |> List.rev
-                                |> Int32.of_chars 2
+                                |> Int32.ofChars 2
                                 |> IntegerLit) }
     
     and octInteger acc ls { next = Lazy lc2 } =
@@ -247,7 +247,7 @@ let lex s pos source =
         | _ ->
             { ls with o = Some (acc
                                 |> List.rev
-                                |> Int32.of_chars 8
+                                |> Int32.ofChars 8
                                 |> IntegerLit) }
     
     and hexInteger acc ls { next = Lazy lc2 } =
@@ -256,7 +256,7 @@ let lex s pos source =
         | _ ->
             { ls with o = Some (acc
                                 |> List.rev
-                                |> Int32.of_chars 16
+                                |> Int32.ofChars 16
                                 |> IntegerLit) }
     
     and quote cons delim acc ls lc =
@@ -302,12 +302,12 @@ let lex s pos source =
             | _ ->
                 { ls with o = Some (acc
                                     |> List.rev
-                                    |> Int32.of_chars 10
+                                    |> Int32.ofChars 10
                                     |> IntegerLit) }
         | _ ->
             { ls with o = Some (acc
                                 |> List.rev
-                                |> Int32.of_chars 10
+                                |> Int32.ofChars 10
                                 |> IntegerLit) }
     
     and fraction acc ls { next = Lazy lc2 } =
@@ -327,12 +327,12 @@ let lex s pos source =
             | _ ->
                 { ls with o = Some (acc
                                 |> List.rev
-                                |> Double.of_chars
+                                |> Double.ofChars
                                 |> FloatLit) }
         | _ ->
             { ls with o = Some (acc
                                 |> List.rev
-                                |> Double.of_chars
+                                |> Double.ofChars
                                 |> FloatLit) }
     
     and exponent acc ls { next = Lazy lc2 } =
@@ -341,20 +341,20 @@ let lex s pos source =
         | _ ->
             { ls with o = Some (acc
                                 |> List.rev
-                                |> Double.of_chars
+                                |> Double.ofChars
                                 |> FloatLit) }
     
     and graphic acc ls { next = Lazy lc2 } =
         match lc2 with
         | { ch = Graphic ch2 } -> { ls with f = graphic (ch2 :: acc) }
         | _ ->
-            { ls with o = Some (acc |> List.rev |> String.of_chars |> Name) }
+            { ls with o = Some (acc |> List.rev |> String.ofChars |> Name) }
     
     and ident cons acc ls { next = Lazy lc2 } =
         match lc2 with
         | { ch = Alphanum ch2 } -> { ls with f = ident cons (ch2 :: acc) }
         | _ ->
-            { ls with o = Some (acc |> List.rev |> String.of_chars |> cons) }
+            { ls with o = Some (acc |> List.rev |> String.ofChars |> cons) }
     
     let rec lex' ls =
         let rec getLc pos source =
@@ -433,7 +433,7 @@ let parse s pos =
     
     let parseDoubleQuotedList chs =
         match s.doubleQuotesFlag with
-        | DoubleQuotesAtom -> (chs |> String.of_chars |> Atom)
+        | DoubleQuotesAtom -> (chs |> String.ofChars |> Atom)
         | DoubleQuotesChars ->
             List.foldBack (string >> Atom >> Term.cons) chs Term.nil
         | DoubleQuotesCodes ->
