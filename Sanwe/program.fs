@@ -27,7 +27,7 @@ module Terp =
     let toplevel s readLn printError =
         let rec readLns () =
             match readLn () with
-            | None -> LazyList.empty ()
+            | None -> LazyList.empty
             | Some ln ->
                 LazyList.append (LazyList.ofSeq ln)
                     (LazyList.consDelayed '\n' readLns)

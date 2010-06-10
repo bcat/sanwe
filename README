@@ -24,8 +24,6 @@ I'd really appreciate any comments you might have about my code. Enjoy!
 == Building instructions ==
 
 To build the provided Visual Studio solution, you will need Visual Studio 2010
-Beta 2 (or newer). You'll also need to download the F# PowerPack included in
-the F# October 2009 CTP (or newer) and place FSharp.PowerPack.dll in the same
-directory as the project file. You can also try to build on Visual Studio 2008
-or Mono using only the F# October 2009 CTP, but this is completely untested.
-Your milage may vary, particularly if you choose the Mono route.
+(or a newer version). You'll also need to install the F# PowerPack 2.0.0.0 (or
+a newer version) You can try to build on Mono using the F# April 2010 CTP, but
+this is completely untested. Your milage may vary if you choose the Mono route.
